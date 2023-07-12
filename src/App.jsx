@@ -5,23 +5,37 @@ import logoImg from './img/logo.png';
 import imgVite from './img/img-vite.png';
 import CardStore from './card-store';
 import Input from './input-card/input';
+import Details from './details/cardDetails';
 
 function App() {
-  const [task, setTask] = useState('');
+  const [search, setSearch] = useState('');
+  const [active, setActive] = useState(false);
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [product, setProducts] = useState([]);
-  const [showDetails, setShowDetails] = useState(true);
+  const [showDetails, setShowDetails] = useState(false);
   const [productDetail, setProductDetail] = useState(null);
+  const [productFiltered, setProductFiltered] = useState([]);
+
+  const filterBySearch = (query) => {
+    let updatedProductList = [...product];
+
+    updatedProductList = updatedProductList.filter((item) => {
+      return item.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    });
+
+    setProductFiltered(updatedProductList);
+  };
 
   const onChange = (event) => {
     const value = event.target.value;
-    setTask(value);
+    setSearch(value);
+    filterBySearch(value);
   };
 
   const onFocus = () => {
-    setActive(false);
+    setActive(true);
   };
 
   const onBlur = () => {
@@ -40,7 +54,7 @@ function App() {
   };
 
   useEffect(() => {
-    const getProduct = async () => {
+    const getProducts = async () => {
       try {
         const response = await fetch('https://64a6d02f096b3f0fcc80a680.mockapi.io/product', {
           method: 'GET',
@@ -55,7 +69,8 @@ function App() {
         console.error(error);
       }
     };
-    getProduct();
+
+    getProducts();
   }, []);
 
   return (
@@ -108,14 +123,37 @@ function App() {
       <div className='containerH2'>
         <h2>Nuestros Productos</h2>
       </div>
-    
-      <div className='inputContainer'>
-        <Input placeholder='find a product' id='task' required={true} name='Search' onChange={onChange} onFocus={onFocus} onBlur={onBlur} />
-      </div>
-      <div className='cardContainer'>
-        {product.map((product) => (
-          <CardStore key={product.id} {...product} onShowDetails={onShowDetails} />
-        ))}
+
+      <div className='contentContainer'>
+        {showDetails ? (
+          <Details productDetail={productDetail} />
+        ) : (
+          <>
+            <div className='inputContainer'>
+              <Input
+                placeholder='find a product'
+                id='task'
+                required={true}
+                name='Search'
+                onChange={onChange}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                active={active}
+              />
+            </div>
+            <div className='cardContainer'>
+              {search.length > 0 ? (
+                productFiltered.map((product) => (
+                  <CardStore key={product.id} {...product} onShowDetails={onShowDetails} />
+                ))
+              ) : (
+                product.map((product) => (
+                  <CardStore key={product.id} {...product} onShowDetails={onShowDetails} />
+                ))
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
