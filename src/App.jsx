@@ -6,6 +6,7 @@ import imgVite from './img/img-vite.png';
 import CardStore from './card-store';
 import Input from './input-card/input';
 import Details from './details/cardDetails';
+import {useFetch} from './hooks/useFetch';
 
 function App() {
   const [search, setSearch] = useState('');
@@ -13,11 +14,17 @@ function App() {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [product, setProducts] = useState([]);
   const [showDetails, setShowDetails] = useState(false);
   const [productDetail, setProductDetail] = useState(null);
   const [productFiltered, setProductFiltered] = useState([]);
 
+  const { data: product, loading, error } = useFetch('https://64a6d02f096b3f0fcc80a680.mockapi.io/product', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  
   const filterBySearch = (query) => {
     let updatedProductList = [...product];
 
@@ -53,25 +60,28 @@ function App() {
     // Aquí puedes hacer algo con los datos ingresados, como llamar a una API
   };
 
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const response = await fetch('https://64a6d02f096b3f0fcc80a680.mockapi.io/product', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
 
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const getProducts = async () => {
+  //     try {
+  //       const response = await fetch('https://64a6d02f096b3f0fcc80a680.mockapi.io/product', {
+  //         method: 'GET',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       });
+  
+  //       const data = await response.json();
+  //       setProducts(data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  
+  //   getProducts();
+  // }, []);
 
-    getProducts();
-  }, []);
+console.log({loading, error, product})
 
   return (
     <div>
@@ -142,6 +152,9 @@ function App() {
               />
             </div>
             <div className='cardContainer'>
+              {loading && <h1>Cargando...</h1> }
+              {error && <h3>Espere un momento a pasado un error</h3> }
+              {search.length > 0 && productFiltered.length === 0 && <h3>Poducto no encontrado</h3>  }
               {search.length > 0 ? (
                 productFiltered.map((product) => (
                   <CardStore key={product.id} {...product} onShowDetails={onShowDetails} />
