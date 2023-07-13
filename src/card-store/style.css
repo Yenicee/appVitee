@@ -40,6 +40,10 @@
     }
   }
 
-  .cardButton{
-    background-color: rgb(66, 69, 69);
-  } 
+.cardName{
+  color: white;
+  font-family: monospace;
+}
+p{
+  color: white;
+}
