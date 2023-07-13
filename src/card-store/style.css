@@ -1,6 +1,5 @@
-
 /****ESTILO PARA PRODUCTOS******/
-.cardContainer{
+ .cardContainer{
   flex-wrap: wrap;
   flex: 1;
   display: flex;
@@ -20,10 +19,10 @@
     
   }
   
-  .cardImage {
+  /* .cardImage {
     width: 100%;
     height: auto;
-  }
+  } */
   
   .cardContent {
     padding: 10px;
@@ -46,4 +45,5 @@
 }
 p{
   color: white;
-}
+  font-family: monospace;
+} 

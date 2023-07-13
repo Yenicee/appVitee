@@ -1,5 +1,4 @@
-import './style.css'
-
+import './styleDetails.css'
 
 const Details = ({id, image, name, category, description, price, stock, onSendToCart,}) => {
   return(

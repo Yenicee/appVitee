@@ -1,10 +1,10 @@
-import './style.css'
+import './style.css';
 
 
 const CardStore = ({id, image, name, category, description, price, stock, onSendToCart, onShowDetails}) => {
   return(
     <div key={id} className='card' onClick={() => onShowDetails(id)}>
-            <img className='cardImage' src={image} alt={name} />
+            {/* <img className='cardImage' src={image} alt={image} /> */}
             <div className='cardContent'>
               <h2 className='cardName'>{name}</h2>
               <p className='cardCategory'>{category}</p>
@@ -18,6 +18,7 @@ const CardStore = ({id, image, name, category, description, price, stock, onSend
           </div>
   )
 }
+
 
 
 

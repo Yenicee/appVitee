@@ -110,11 +110,21 @@ function App() {
           </form>
         </div>
         <h3>Programar es duro <hr />pero aca te enseño.</h3>
+        
       </div>
 
       <div className='contentContainer'>
         {showDetails ? (
-          <Details productDetail={productDetail} />
+          <Details
+            id={productDetail.id}
+            image={productDetail.image}
+            name={productDetail.name}
+            category={productDetail.category}
+            description={productDetail.description}
+            price={productDetail.price}
+            stock={productDetail.stock}
+
+          />
         ) : (
           <>
             <div>
@@ -132,18 +142,38 @@ function App() {
             <div className='containerH2'>
               <h2 className='nuestroProduc'>Nuestros Productos</h2>
             </div>
-            
+
             <div className='cardContainer'>
               {loading && <h1>Cargando...</h1>}
               {error && <h3>Espere un momento a pasado un error</h3>}
               {search.length > 0 && productFiltered.length === 0 && <h3>Poducto no encontrado</h3>}
               {search.length > 0 ? (
                 productFiltered.map((product) => (
-                  <CardStore key={product.id} {...product} onShowDetails={onShowDetails} />
+                  <Details
+                    key={product.id}
+                    id={product.id}
+                    image={product.image}
+                    name={product.name}
+                    category={product.category}
+                    description={product.description}
+                    price={product.price}
+                    stock={product.stock}
+                    onShowDetails={onShowDetails}
+                  />
                 ))
               ) : (
                 product.map((product) => (
-                  <CardStore key={product.id} {...product} onShowDetails={onShowDetails} />
+                  <CardStore
+                    key={product.id}
+                    id={product.id}
+                    image={product.image}
+                    name={product.name}
+                    category={product.category}
+                    description={product.description}
+                    price={product.price}
+                    stock={product.stock}
+                    onShowDetails={onShowDetails}
+                  />
                 ))
               )}
             </div>

@@ -166,16 +166,16 @@ h3 {
   padding: 2rem;
   color: wheat;
   font-family: monospace;
-  font-size: 2rem;
-  margin-left: auto;
+  font-size: 2.4rem; 
 }
+
 
 /*estilo al h2 inicio*/
 .nuestroProduc{
   color: white;
   text-align: center;
   font-family: monospace;
-  font-size: 2rem;
+  font-size: 2.5rem;
   padding: 0.7rem;
 }
 
