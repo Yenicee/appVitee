@@ -15,10 +15,9 @@ const Header = ({menuItem, logoImg}) => {
             </label>
             <nav className="nav">
                 <ul className="menu">
-                    <li><a href="#">Sobre mi</a> </li>
-                    <li><a href="./card-store/index.jsx">Servicios</a></li>
+                    <li><a href="#">Home</a> </li>
+                    <li><a href="./card-store/index.jsx">Productos</a></li>
                     <li><a href="#">Sobre mi</a></li>
-                    <li><a href="#">Servicios</a></li>
                     <li><a href="#">Formulario</a></li>
                 </ul>
                 <Cart cartNumber={1} />
