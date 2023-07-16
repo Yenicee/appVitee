@@ -1,9 +1,10 @@
-import './styleDetails.css'
+import './styleDetails.css';
+import agendaImg from '../img/agenda.jpg';
 
-const Details = ({id, image, name, category, description, price, stock, onSendToCart,}) => {
+const Details = ({id, name, category, description, price, stock, onSendToCart,}) => {
   return(
     <div className='card'>
-            <img className='cardImage' src={image} alt={name} />
+            <img className='cardImage' src={agendaImg} alt='agenda' />
             <div className='cardContent'>
               <h2 className='cardName'>{name}</h2>
               <p className='cardCategory'>{category}</p>

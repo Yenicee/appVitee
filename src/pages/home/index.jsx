@@ -22,6 +22,8 @@ function Home() {
     const [productDetail, setProductDetail] = useState(null);
     const [productFiltered, setProductFiltered] = useState([]);
 
+    const {data, categories, loading: loadingCategories , error: errorCategories} = useFetch()
+
     const { data: product, loading, error } = useFetch('https://64a6d02f096b3f0fcc80a680.mockapi.io/product', {
         method: 'GET',
         headers: {

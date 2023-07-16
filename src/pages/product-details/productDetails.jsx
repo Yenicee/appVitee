@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Details from '../../details/cardDetails';
 import { useFetch } from '../../hooks/useFetch';
 import './style.css';
@@ -31,9 +31,10 @@ import './style.css';
 
 function ProductDetails() {
     const { productId } = useParams();
+    const navigate = useNavigate();
     const urlProductDetail = `https://64a6d02f096b3f0fcc80a680.mockapi.io/product/${productId}`;
-    console.log({productId})
-    
+    console.log({ productId })
+
     const { data, loading, error } = useFetch(urlProductDetail, {
         method: 'GET',
         headers: {
@@ -52,6 +53,7 @@ function ProductDetails() {
     return (
         <>
             <div className='contentContainer'>
+                <button onClick={() => navigate(-1)} >back</button>
                 <h2>Detalles del Producto</h2>
             </div>
             {data && (
