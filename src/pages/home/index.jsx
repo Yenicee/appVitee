@@ -7,10 +7,12 @@ import CardStore from '../../card-store';
 import Input from '../../input-card/input';
 import Details from '../../details/cardDetails';
 import { useFetch } from '../../hooks/useFetch';
+import {useNavigate } from 'react-router-dom' ;
 
 
 
 function Home() {
+    const navigate = useNavigate();
     const [search, setSearch] = useState('');
     const [active, setActive] = useState(false);
     const [nombre, setNombre] = useState('');
@@ -52,9 +54,8 @@ function Home() {
     };
 
     const onShowDetails = (id) => {
-        setShowDetails(true);
-        const findProduct = product.find((product) => product.id === id);
-        setProductDetail(findProduct);
+        navigate(`/product/${id}`);
+       
     };
 
     const handleSubmit = (event) => {
@@ -116,73 +117,59 @@ function Home() {
             </div>
 
             <div className='contentContainer'>
-                {showDetails ? (
-                    <Details
-                        id={productDetail.id}
-                        image={productDetail.image}
-                        name={productDetail.name}
-                        category={productDetail.category}
-                        description={productDetail.description}
-                        price={productDetail.price}
-                        stock={productDetail.stock}
 
+                <div>
+                    <Input
+                        placeholder='find a product'
+                        id='task'
+                        required={true}
+                        name=''
+                        onChange={onChange}
+                        onFocus={onFocus}
+                        onBlur={onBlur}
+                        active={active}
                     />
-                ) : (
-                    <>
-                        <div>
-                            <Input
-                                placeholder='find a product'
-                                id='task'
-                                required={true}
-                                name=''
-                                onChange={onChange}
-                                onFocus={onFocus}
-                                onBlur={onBlur}
-                                active={active}
-                            />
-                        </div>
-                        <div className='containerH2'>
-                            <h2 className='nuestroProduc'>Nuestros Productos</h2>
-                        </div>
+                </div>
+                <div className='containerH2'>
+                    <h2 className='nuestroProduc'>Nuestros Productos</h2>
+                </div>
 
-                        <div className='cardContainer'>
-                            {loading && <h1>Cargando...</h1>}
-                            {error && <h3>Espere un momento a pasado un error</h3>}
-                            {search.length > 0 && productFiltered.length === 0 && <h3>Poducto no encontrado</h3>}
-                            {search.length > 0 ? (
-                                productFiltered.map((product) => (
-                                    <Details
-                                        key={product.id}
-                                        id={product.id}
-                                        image={product.image}
-                                        name={product.name}
-                                        category={product.category}
-                                        description={product.description}
-                                        price={product.price}
-                                        stock={product.stock}
-                                        onShowDetails={onShowDetails}
-                                    />
-                                ))
-                            ) : (
-                                product.map((product) => (
-                                    <CardStore
-                                        key={product.id}
-                                        id={product.id}
-                                        image={product.image}
-                                        name={product.name}
-                                        category={product.category}
-                                        description={product.description}
-                                        price={product.price}
-                                        stock={product.stock}
-                                        onShowDetails={onShowDetails}
-                                    />
-                                ))
-                            )}
-                        </div>
-                    </>
-                )}
+                <div className='cardContainer'>
+                    {loading && <h1>Cargando...</h1>}
+                    {error && <h3>Espere un momento a pasado un error</h3>}
+                    {search.length > 0 && productFiltered.length === 0 && <h3>Poducto no encontrado</h3>}
+                    {search.length > 0 ? (
+                        productFiltered.map((product) => (
+                            <Details
+                                key={product.id}
+                                id={product.id}
+                                image={product.image}
+                                name={product.name}
+                                category={product.category}
+                                description={product.description}
+                                price={product.price}
+                                stock={product.stock}
+                                onShowDetails={onShowDetails}
+                            />
+                        ))
+                    ) : (
+                        product.map((product) => (
+                            <CardStore
+                                key={product.id}
+                                id={product.id}
+                                image={product.image}
+                                name={product.name}
+                                category={product.category}
+                                description={product.description}
+                                price={product.price}
+                                stock={product.stock}
+                                onShowDetails={onShowDetails}
+                            />
+                        ))
+                    )}
+                </div>
             </div>
-        </div>
+        </div >
     );
 }
 

@@ -32,7 +32,8 @@ import './style.css';
 function ProductDetails() {
     const { productId } = useParams();
     const urlProductDetail = `https://64a6d02f096b3f0fcc80a680.mockapi.io/product/${productId}`;
-
+    console.log({productId})
+    
     const { data, loading, error } = useFetch(urlProductDetail, {
         method: 'GET',
         headers: {
