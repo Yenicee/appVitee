@@ -175,4 +175,10 @@
     padding: 0.7rem;
   }
   
-  
+.categoryContainer{
+  min-width: 200px;
+  height:fit-content;
+  background-color: #00dbde;
+  margin: 10px;
+  padding: 1rem;
+}

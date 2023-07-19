@@ -7,7 +7,8 @@ import CardStore from '../../card-store';
 import Input from '../../input-card/input';
 import Details from '../../details/cardDetails';
 import { useFetch } from '../../hooks/useFetch';
-import {useNavigate } from 'react-router-dom' ;
+import { useNavigate } from 'react-router-dom';
+import Slider from '../../slider';
 
 
 
@@ -22,14 +23,24 @@ function Home() {
     const [productDetail, setProductDetail] = useState(null);
     const [productFiltered, setProductFiltered] = useState([]);
 
-    const {data, categories, loading: loadingCategories , error: errorCategories} = useFetch()
 
-    const { data: product, loading, error } = useFetch('https://64a6d02f096b3f0fcc80a680.mockapi.io/product', {
+
+    const { data, categories, loading: loadingCategories, error: errorCategories } = useFetch('https://64a6d02f096b3f0fcc80a680.mockapi.io/categories', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
     });
+
+    const { data: product, loading: loadingProduct, error: errorProduct } = useFetch(
+        'https://64a6d02f096b3f0fcc80a680.mockapi.io/product',
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+    );
 
     const filterBySearch = (query) => {
         let updatedProductList = [...product];
@@ -57,7 +68,7 @@ function Home() {
 
     const onShowDetails = (id) => {
         navigate(`/product/${id}`);
-       
+
     };
 
     const handleSubmit = (event) => {
@@ -66,12 +77,9 @@ function Home() {
     };
 
 
-    console.log({ loading, error, product })
 
     return (
         <div>
-            <Header logoImg={logoImg} />
-
             <div className='container-img'>
                 <h1>
                     Creacion
@@ -119,7 +127,17 @@ function Home() {
             </div>
 
             <div className='contentContainer'>
-
+                <div className='category'>
+                    {loadingCategories && <h1>Cargando...</h1>}
+                    {errorCategories && <h3>{errorCategories}</h3>}
+                    <Slider>
+                        {data.map((category) => (
+                            <div key={category.id} className='categoryContainer'>
+                                <p className='categoryName'> {category.name}</p></div>
+                        ))}
+                     </Slider> 
+                </div>
+              
                 <div>
                     <Input
                         placeholder='find a product'
@@ -137,8 +155,8 @@ function Home() {
                 </div>
 
                 <div className='cardContainer'>
-                    {loading && <h1>Cargando...</h1>}
-                    {error && <h3>Espere un momento a pasado un error</h3>}
+                    {loadingProduct && <h1>Cargando...</h1>}
+                    {errorProduct && <h3>Espere un momento a pasado un error</h3>}
                     {search.length > 0 && productFiltered.length === 0 && <h3>Poducto no encontrado</h3>}
                     {search.length > 0 ? (
                         productFiltered.map((product) => (

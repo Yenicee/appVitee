@@ -1,0 +1,37 @@
+.slider {
+    overflow: hidden;
+    position: relative;
+
+}
+
+.sliderContent {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+
+.nextButton,
+.previousButton {
+    background-color: rgb(97, 98, 103);
+    border: none;
+    width: 1rem;
+    height: 100%;
+    position: absolute;
+    top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nextButton {
+    right: 0;
+}
+
+.previousButton span,
+.nextButton {
+    font-size: 1.2rem;
+    color: rgb(116, 11, 11);
+}
