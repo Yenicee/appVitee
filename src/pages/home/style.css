@@ -199,7 +199,7 @@
   --background: linear-gradient(to left, #7a144c 0%, #77a6dc 100%);
   /* width: 190px;
   height: 254px; */
-  padding: 5px; 
+  padding: 2rem; 
   border-radius: 1rem;
   overflow: visible;
   background: #494743;
@@ -207,6 +207,9 @@
   position: relative;
   z-index: 1; 
   transition: 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  flex: 2;
 }
 
 .cartContainer:hover{
@@ -217,7 +220,8 @@
 .cartName,
 .cartQuantity,
 .cartPrice,
-.cartStock{
+.cartStock,
+.cartTotal{
   font-family: monospace;
   color: #eee6e6;
   font-size: 0.9rem;
@@ -225,4 +229,53 @@
 
 h2{
   font-family: monospace;
+}
+
+.cartName{
+  display: flex;
+  flex-direction: row;
+  max-width: 350px;
+}
+.cartItem{
+  flex: 1;
+}
+
+.cartActions{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 250px;
+}
+.buttonAdd{
+  margin: 0.5rem;
+  padding: 0.3rem;
+  background-color: rgb(28, 37, 84);
+  border: none;
+  transition: 0.3s ease-in-out;
+  color: antiquewhite;
+  font-family: monospace;
+  border-radius: 10% 10% 10% 10%;
+
+}
+.buttonDecrease{
+  margin: 0.5rem;
+  padding: 0.3rem;
+  background-color: rgb(48, 61, 123);
+  border: none;
+  transition: 0.3s ease-in-out;
+  color: antiquewhite;
+  font-family: monospace;
+  border-radius: 10% 10% 10% 10%;
+
+}
+.buttonRemove{
+  margin: 0.5rem;
+  padding: 0.3rem;
+  background-color: rgb(41, 50, 94);
+  border: none;
+  transition: 0.3s ease-in-out;
+  color: antiquewhite;
+  font-family: monospace;
+  border-radius: 10% 10% 10% 10%;
+
 }

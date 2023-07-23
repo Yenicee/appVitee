@@ -112,7 +112,35 @@ function Home() {
         }
     };
 
-    console.log({ cart });
+    const onDecreaseCartItem = (id) => {
+        const item = cart.find((product) => product.id === id); // Use the 'cart' array instead of 'product' array
+        if (!item) {
+            console.error('El producto no se encontró en el carrito.'); // Inform if the product is not found in the cart
+            return;
+        }
+
+        if (item.quantity === 1) {
+            // If the quantity is already 1, don't decrease it further.
+            return;
+        }
+
+        // Decrease the quantity by 1 for the specific product in the cart
+        setCart((currentCart) =>
+            currentCart.map((product) =>
+                product.id === id ? { ...product, quantity: product.quantity - 1 } : product
+            )
+        );
+    };
+
+
+    const onRemoveCartItem = (id) => {
+        setCart((currentCart) => {
+            return currentCart.filter((product) => product.id === id)
+        })
+    }
+
+    const sumTotalCart = cart.reduce((acc, product) => acc + (product.price * product.quantity), 0);
+
 
     return (
         <div>
@@ -173,9 +201,16 @@ function Home() {
                                 <p className='cartQuantity'>qty:{product.quantity}</p>
                                 <p className='cartPrice'>${product.price}</p>
                                 <p className='cartStock'>{product.stock} left</p>
-
+                                <div className='cartActions'>
+                                    <button onClick={() => onSendToCart(product.id)} className='buttonAdd'>+</button>
+                                    <button onClick={() => onDecreaseCartItem(product.id)} className='buttonDecrease'>-</button>
+                                    <button onClick={() => onRemoveCartItem(product.id)} className='buttonRemove'>Remove</button>
+                                </div>
                             </div>
                         ))
+                    }
+                    {
+                        cart?.length > 0 && <p className='cartTotal'> Total: ${sumTotalCart}</p>
                     }
                 </div>
                 <div className='category'>
