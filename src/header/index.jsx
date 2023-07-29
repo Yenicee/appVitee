@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './style.css';
-import './estilo.css'
 import Cart from './cart'
+import { CartContext } from '../context/cart-context';
 
-const Header = ({menuItem, logoImg}) => {
+const Header = ({ menuItem, logoImg }) => {
+    const { cart } = useContext(CartContext);
     return (
         <header className="header">
-          <img src={logoImg} className="logoImg" alt="logo" />
+            <img src={logoImg} className="logoImg" alt="logo" />
 
 
             <input type="checkbox" className="side-menu" id="side-menu" />
@@ -20,7 +21,12 @@ const Header = ({menuItem, logoImg}) => {
                     <li><a href="#">Sobre mi</a></li>
                     <li><a href="#">Formulario</a></li>
                 </ul>
-                <Cart cartNumber={1} />
+                <li className='containerCartLi'>
+                    <Cart />
+                    <div className='cartCounterContainer'>
+                    <span className='cartCount'>{cart.length}</span>
+                    </div>
+                </li>
             </nav>
         </header>
     )

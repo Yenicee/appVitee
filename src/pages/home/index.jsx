@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './style.css';
 import Header from '../../header';
 import logoImg from '../../img/logo.png';
@@ -9,8 +9,7 @@ import Details from '../../details/cardDetails';
 import { useFetch } from '../../hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
 import Slider from '../../slider';
-
-
+import { CartContext } from '../../context/cart-context';
 
 function Home() {
     const navigate = useNavigate();
@@ -20,10 +19,9 @@ function Home() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isFiltered, setIsFiltered] = useState(false);
-    const [productDetail, setProductDetail] = useState(null);
     const [productFiltered, setProductFiltered] = useState([]);
-    const [cart, setCart] = useState([]);
 
+    const { setProduct, product: productContext, onSendToCart, cart } = useContext(CartContext);
 
 
     const { data, categories, loading: loadingCategories, error: errorCategories } = useFetch('https://64a6d02f096b3f0fcc80a680.mockapi.io/categories', {
@@ -43,6 +41,7 @@ function Home() {
         }
     );
 
+  
     // const filterBySearch = (query) => {
     //     let updatedProductList = [...product];
 
@@ -67,6 +66,14 @@ function Home() {
     //     setActive(false);
     // };
 
+    useEffect(() => {
+        if (product?.length > 0) {
+            setProduct(product);
+        }
+
+    }, [product,setProduct])
+
+
     const onFilter = (name) => {
         setIsFiltered(true);
         const productByCategory = product.filter((product) => product.category === name);
@@ -83,64 +90,7 @@ function Home() {
         // Aquí puedes hacer algo con los datos ingresados, como llamar a una API
     };
 
-    const onSendToCart = (id) => {
-        const item = product.find((product) => product.id === id);
-        if (!item) {
-            // Si el producto no se encuentra, puedes manejar el error aquí si es necesario.
-            console.error('El producto no se encontró.');
-            return;
-        }
-
-        if (cart?.find((product) => product.id === id)?.quantity === Number(item.stock)) {
-            // Si la cantidad en el carrito es igual al stock del producto, no agregamos más al carrito.
-            return;
-        }
-
-        if (cart?.length === 0) {
-            // Si el carrito está vacío, agregamos el producto con cantidad 1.
-            setCart([{ ...item, quantity: 1 }]);
-        } else if (!cart?.find((product) => product.id === id)) {
-            // Si el producto no está en el carrito, lo agregamos con cantidad 1.
-            setCart([...cart, { ...item, quantity: 1 }]);
-        } else {
-            // Si el producto ya está en el carrito, actualizamos su cantidad.
-            setCart((currentCart) =>
-                currentCart.map((product) =>
-                    product.id === id ? { ...product, quantity: product.quantity + 1 } : product
-                )
-            );
-        }
-    };
-
-    const onDecreaseCartItem = (id) => {
-        const item = cart.find((product) => product.id === id); // Use the 'cart' array instead of 'product' array
-        if (!item) {
-            console.error('El producto no se encontró en el carrito.'); // Inform if the product is not found in the cart
-            return;
-        }
-
-        if (item.quantity === 1) {
-            // If the quantity is already 1, don't decrease it further.
-            return;
-        }
-
-        // Decrease the quantity by 1 for the specific product in the cart
-        setCart((currentCart) =>
-            currentCart.map((product) =>
-                product.id === id ? { ...product, quantity: product.quantity - 1 } : product
-            )
-        );
-    };
-
-
-    const onRemoveCartItem = (id) => {
-        setCart((currentCart) => {
-            return currentCart.filter((product) => product.id === id)
-        })
-    }
-
-    const sumTotalCart = cart.reduce((acc, product) => acc + (product.price * product.quantity), 0);
-
+    console.log({productContext, cart});
 
     return (
         <div>
@@ -191,7 +141,7 @@ function Home() {
             </div>
 
             <div className='contentContainer'>
-                <h2>Carrito</h2>
+                {/* <h2>Carrito</h2>
                 <div className='cartContainer'>
                     {cart.length === 0 && <h2>carrito vacio</h2>}
                     {
@@ -205,6 +155,7 @@ function Home() {
                                     <button onClick={() => onSendToCart(product.id)} className='buttonAdd'>+</button>
                                     <button onClick={() => onDecreaseCartItem(product.id)} className='buttonDecrease'>-</button>
                                     <button onClick={() => onRemoveCartItem(product.id)} className='buttonRemove'>Remove</button>
+                               
                                 </div>
                             </div>
                         ))
@@ -212,7 +163,7 @@ function Home() {
                     {
                         cart?.length > 0 && <p className='cartTotal'> Total: ${sumTotalCart}</p>
                     }
-                </div>
+                </div> */}
                 <div className='category'>
                     {loadingCategories && <h1>Cargando...</h1>}
                     {errorCategories && <h3>{errorCategories}</h3>}
