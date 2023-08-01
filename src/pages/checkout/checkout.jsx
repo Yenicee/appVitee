@@ -13,33 +13,40 @@ const initialState = {
 
 
 function Checkout () { 
-    const [formState, inputHandler, clearInputs, inputFocus ] = useForm(initialState)
+    const [formState, inputHandler, clearInputs, inputFocus, inputBlur ] = useForm(initialState)
     const onChange = (event) => {
         const { name, value } = event.target
         inputHandler({ name, value })
     }
-    const onFocus = (name, active) => {
-        inputFocus({name, active})
+    const onFocus = (name) => {
+        inputFocus({name})
     }
-    const onBlur = () => {
-       // setActive(false)
+    const onBlur = ({name}) => {
+       inputBlur({name})
+    }
+  
+    const onSubmit = (event) => {
+         event.preventDefaul()
+         console.log('formState', formState)
     }
 
-console.log({formState})
     return (
         <div className='checkoutContainer'>
             <h1>Checkout</h1>
-            <form className='checkoutForm'>
+            <form onSubmit={onSubmit} className='checkoutForm'>
                 <div className='checkoutInputGroup'>
                     <Input
                         placeholder='Martin'
                         id='name'
+                        name='name'
                         required={true}
                         label='Nombre'
                         onChange={onChange}
-                        onFocus= {() => onFocus({name:'name', active: true})}
-                        onBlur={onBlur}
+                        onFocus= {() => onFocus({name:'name'})}
+                        onBlur={() => onBlur({name:'name'})}
                         active={formState.name.active}
+                        error={formState.name.error}
+                        hasError={formState.name.hasError}
                     />
                 </div>
 
@@ -47,51 +54,63 @@ console.log({formState})
                     <Input
                         placeholder='Ratto'
                         id='surname'
+                        name='surname'
                         required={true}
                         label='Apellido'
                         onChange={onChange}
-                        onFocus={onFocus}
-                        onBlur={onBlur}
+                        onFocus={() => onFocus({name:'surname'})}
+                        onBlur={() => onBlur({name:'surname'})}
                         active={formState.surname.active}
+                        error={formState.surname.error}
+                        hasError={formState.surname.hasError}
                     />
                 </div>
                 <div className='checkoutInputGroup'>
                     <Input
                         placeholder='San Isidro'
                         id='address'
+                        name='address'
                         required={true}
                         label='Direccion'
                         onChange={onChange}
-                        onFocus={onFocus}
-                        onBlur={onBlur}
+                        onFocus={() => onFocus({name:'address'})}
+                        onBlur={() => onBlur({name:'address'})}
                         active={formState.address.active}
+                        error={formState.address.error}
+                        hasError={formState.address.hasError}
                     />
                 </div>
                 <div className='checkoutInputGroup'>
                     <Input
                         placeholder='568982565'
                         id='document'
+                        name='document'
                         required={true}
                         label='Documento de Identidad'
                         onChange={onChange}
-                        onFocus={onFocus}
-                        onBlur={onBlur}
+                        onFocus={() => onFocus({name:'document'})}
+                        onBlur={() => onBlur({name:'document'})}
                         active={formState.document.active}
+                        error={formState.document.error}
+                        hasError={formState.document.hasError}
                     />
                 </div>
                 <div className='checkoutInputGroup'>
                     <Input
                         placeholder='+54 3524158989'
                         id='phone'
+                        name='phone'
                         required={true}
                         label='Telefono'
                         onChange={onChange}
-                        onFocus={onFocus}
-                        onBlur={onBlur}
+                        onFocus={() => onFocus({name:'phone'})}
+                        onBlur={() => onBlur({name:'phone'})}
                         active={formState.phone.active}
+                        error={formState.phone.error}
+                        hasError={formState.phone.hasError}
                     />
                 </div>
-                <button type='submit' className='butttonCheckout'>Checkout</button>
+                <button disabled={!formState.isFormValid} type='submit' className='butttonCheckout'>Checkout</button>
             </form>
 
         </div>

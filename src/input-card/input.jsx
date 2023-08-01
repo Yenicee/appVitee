@@ -12,6 +12,8 @@ const Input = ({
     onChange,
     value,
     active,
+    error,
+    hasError,
 }) => {
     const inputClass = `container ${active ? 'active' : ''}`
     return (
@@ -32,6 +34,9 @@ const Input = ({
             >
                 {label}
             </label>
+            {hasError && (
+                <span className='error'>{error}</span>
+            )}
         </div>
     )
 }
