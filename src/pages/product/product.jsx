@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import './style.css';
 
 
-const CardStore = ({id, image, name, category, description, price, stock, onSendToCart, onShowDetails}) => {
+const CardStore = memo(({id, image, name, category, description, price, stock, onSendToCart, onShowDetails}) => {
     return(
       <div key={id} className='card' onClick={() => onShowDetails(id)}>
               {/* <img className='cardImage' src={image} alt={image} /> */}
@@ -17,7 +18,7 @@ const CardStore = ({id, image, name, category, description, price, stock, onSend
               </div>
             </div>
     )
-  }
+  });
   
   
   

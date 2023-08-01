@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import './style.css';
 import Cart from './cart'
 import { CartContext } from '../context/cart-context';
+import { Link } from 'react-router-dom';
 
 const Header = ({ menuItem, logoImg }) => {
     const { cart } = useContext(CartContext);
@@ -16,15 +17,15 @@ const Header = ({ menuItem, logoImg }) => {
             </label>
             <nav className="nav">
                 <ul className="menu">
-                    <li><a href="#">Home</a> </li>
-                    <li><a href="./card-store/index.jsx">Productos</a></li>
-                    <li><a href="#">Sobre mi</a></li>
-                    <li><a href="#">Formulario</a></li>
+                    <li><Link to='/'>Home</Link></li>
+                    <li><Link to='/product'>Productos</Link></li>
+                    <li><Link to='/aboutMy'>Sobre mi</Link></li>
+                    <li><Link to='/form'>Formulario</Link></li>
                 </ul>
                 <li className='containerCartLi'>
                     <Cart />
                     <div className='cartCounterContainer'>
-                    <span className='cartCount'>{cart.length}</span>
+                        <span className='cartCount'>{cart.length}</span>
                     </div>
                 </li>
             </nav>

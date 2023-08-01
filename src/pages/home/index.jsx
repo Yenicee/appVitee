@@ -42,29 +42,29 @@ function Home() {
     );
 
   
-    // const filterBySearch = (query) => {
-    //     let updatedProductList = [...product];
+    const filterBySearch = (query) => {
+        let updatedProductList = [...product];
 
-    //     updatedProductList = updatedProductList.filter((item) => {
-    //         return item.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-    //     });
+        updatedProductList = updatedProductList.filter((item) => {
+            return item.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+        });
 
-    //     setProductFiltered(updatedProductList);
-    // };
+        setProductFiltered(updatedProductList);
+    };
 
-    // const onChange = (event) => {
-    //     const value = event.target.value;
-    //     setSearch(value);
-    //     filterBySearch(value);
-    // };
+    const onChange = (event) => {
+        const value = event.target.value;
+        setSearch(value);
+        filterBySearch(value);
+    };
 
-    // const onFocus = () => {
-    //     setActive(true);
-    // };
+    const onFocus = () => {
+        setActive(true);
+    };
 
-    // const onBlur = () => {
-    //     setActive(false);
-    // };
+    const onBlur = () => {
+        setActive(false);
+    };
 
     useEffect(() => {
         if (product?.length > 0) {
@@ -141,29 +141,7 @@ function Home() {
             </div>
 
             <div className='contentContainer'>
-                {/* <h2>Carrito</h2>
-                <div className='cartContainer'>
-                    {cart.length === 0 && <h2>carrito vacio</h2>}
-                    {
-                        cart?.length > 0 && cart.map((product) => (
-                            <div key={product.id} className='cartItem'>
-                                <p className='cartName'>{product.name}</p>
-                                <p className='cartQuantity'>qty:{product.quantity}</p>
-                                <p className='cartPrice'>${product.price}</p>
-                                <p className='cartStock'>{product.stock} left</p>
-                                <div className='cartActions'>
-                                    <button onClick={() => onSendToCart(product.id)} className='buttonAdd'>+</button>
-                                    <button onClick={() => onDecreaseCartItem(product.id)} className='buttonDecrease'>-</button>
-                                    <button onClick={() => onRemoveCartItem(product.id)} className='buttonRemove'>Remove</button>
-                               
-                                </div>
-                            </div>
-                        ))
-                    }
-                    {
-                        cart?.length > 0 && <p className='cartTotal'> Total: ${sumTotalCart}</p>
-                    }
-                </div> */}
+               
                 <div className='category'>
                     {loadingCategories && <h1>Cargando...</h1>}
                     {errorCategories && <h3>{errorCategories}</h3>}
@@ -176,7 +154,7 @@ function Home() {
                     </Slider>
                 </div>
 
-                {/* <div>
+                <div>
                     <Input
                         placeholder='find a product'
                         id='task'
@@ -187,7 +165,7 @@ function Home() {
                         onBlur={onBlur}
                         active={active}
                     />
-                </div> */}
+                </div>
                 <div className='containerH2'>
                     <h2 className='nuestroProduc'>Nuestros Productos</h2>
                 </div>
