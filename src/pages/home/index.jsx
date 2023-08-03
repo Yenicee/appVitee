@@ -90,8 +90,6 @@ function Home() {
         // Aquí puedes hacer algo con los datos ingresados, como llamar a una API
     };
 
-    console.log({productContext, cart});
-
     return (
         <div>
             <div className='container-img'>
@@ -159,7 +157,8 @@ function Home() {
                         placeholder='find a product'
                         id='task'
                         required={true}
-                        name=''
+                        label='Search'
+                        name='Search'
                         onChange={onChange}
                         onFocus={onFocus}
                         onBlur={onBlur}

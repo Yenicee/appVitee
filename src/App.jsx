@@ -9,6 +9,11 @@ import { CartProvider } from './context/cart-context';
 import Cart from './header/cart';
 import AboutMy from './pages/aboutMy/aboutMy';
 import Checkout from './pages/checkout/checkout';
+import SuccessOrder from './pages/success-order';
+
+
+
+
 
 function App() {
   return (
@@ -23,6 +28,8 @@ function App() {
           <Route path='/checkout' element={<Checkout />}></Route>
           <Route path='/aboutMy' element={<AboutMy />} />
           <Route path='/form' element={<Form />}/>
+          <Route path='/success-order' element={<SuccessOrder />} />
+      
         </Routes>
       </CartProvider>
     </div>

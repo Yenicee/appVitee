@@ -4,7 +4,18 @@
     padding: 1.5rem;
 }
 
+/* .cartContainer{
+    display: flex;
+    flex-direction: column;
+    max-width: 50vw;
+} */
 
+.checkoutDetails{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+
+}
 .checkoutInputGroup{
     display: flex;
     flex-direction: column;

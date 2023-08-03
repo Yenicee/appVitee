@@ -1,7 +1,7 @@
 const nameRegex = /^[a-zA-ZÀ-ÿ\s]{2,40}$/;
 const surnameRegex = /^[a-zA-ZÀ-ÿ\s]{2,40}$/;
 const documentRegex = /^[0-9]{8,15}$/;
-const phoneRegex = /^[0-9]{5645}$/;
+const phoneRegex = /^\+?[0-9]{1,15}$/;
 const addressRegex = /^[a-zA-ZÀ-ÿ0-9\s]{8,80}$/;
 
 
@@ -60,12 +60,12 @@ export const validateInput = ({ type, value }) => {
         //     }
         //     break;
         case 'phone':
-            if(formatValue === "") {
+            if (formatValue.trim() === "") {
                 hasError = true;
                 error = 'Phone is required';
-            } else if(!phoneRegex.test(formatValue)) {
+            } else if (!phoneRegex.test(formatValue)) {
                 hasError = true;
-                error = 'Phone is invalid';
+                error = 'Invalid phone number';
             } else {
                 hasError = false;
                 error = '';
