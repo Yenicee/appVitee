@@ -22,7 +22,7 @@ const initialState = {
 function Checkout() {
     const { cart, total, setCart, onSendToCart, onDecreaseCartItem, onRemoveCartItem } = useContext(CartContext);
     const [formState, inputHandler, inputFocus, inputBlur, clearInputs] = useForm(initialState)
-    const { state } = useLocation();
+    //const { state } = useLocation();
     const navigate = useNavigate();
     let query = useQuery();
 
@@ -51,7 +51,7 @@ function Checkout() {
         inputHandler({ name, value })
     }
     const onFocus = (name) => {
-        inputFocus({ name })
+        inputFocus({ name, value })
     }
     const onBlur = ({ name }) => {
         inputBlur({ name })
@@ -135,8 +135,8 @@ function Checkout() {
                             required={true}
                             label='Apellido'
                             onChange={onChange}
-                            onFocus={() => onFocus({ name: 'surname' })}
-                            onBlur={() => onBlur({ name: 'surname' })}
+                            onFocus={(e) => onFocus({e, name: 'surname' })}
+                            onBlur={(e) => onBlur({e, name: 'surname' })}
                             active={formState.surname.active}
                             error={formState.surname.error}
                             hasError={formState.surname.hasError}
@@ -150,8 +150,8 @@ function Checkout() {
                             required={true}
                             label='Direccion'
                             onChange={onChange}
-                            onFocus={() => onFocus({ name: 'address' })}
-                            onBlur={() => onBlur({ name: 'address' })}
+                            onFocus={(e) => onFocus({e, name: 'address' })}
+                            onBlur={(e) => onBlur({e, name: 'address' })}
                             active={formState.address.active}
                             error={formState.address.error}
                             hasError={formState.address.hasError}
@@ -165,8 +165,8 @@ function Checkout() {
                             required={true}
                             label='Documento de Identidad'
                             onChange={onChange}
-                            onFocus={() => onFocus({ name: 'document' })}
-                            onBlur={() => onBlur({ name: 'document' })}
+                            onFocus={(e) => onFocus({e, name: 'document' })}
+                            onBlur={(e) => onBlur({e, name: 'document' })}
                             active={formState.document.active}
                             error={formState.document.error}
                             hasError={formState.document.hasError}
@@ -180,8 +180,8 @@ function Checkout() {
                             required={true}
                             label='Telefono'
                             onChange={onChange}
-                            onFocus={() => onFocus({ name: 'phone' })}
-                            onBlur={() => onBlur({ name: 'phone' })}
+                            onFocus={(e) => onFocus({e, name: 'phone' })}
+                            onBlur={(e) => onBlur({e, name: 'phone' })}
                             active={formState.phone.active}
                             error={formState.phone.error}
                             hasError={formState.phone.hasError}
